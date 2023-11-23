@@ -157,8 +157,8 @@ interface Props {
 
 // ... (other imports)
 
-function Tasks({ title }: Props) {
-  const { theme, isLoading, openModal, modal, tasks, allTasks } = useGlobalState();
+function Tasks({ title,tasks }: Props) {
+  const { theme, isLoading, openModal, modal, allTasks } = useGlobalState();
 
   useEffect(() => {
     const fetchData = async () => {
