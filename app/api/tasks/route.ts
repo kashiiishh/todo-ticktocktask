@@ -3,6 +3,7 @@ import prisma from "@/app/utils/connect";
 import { NextResponse } from "next/server";
 import toast from "react-hot-toast";
 
+import Tasks from "@/app/Components/Tasks/Tasks";
 export async function POST(req: Request) {
     try {
 
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const task = await prisma.task.create({
+        const task: typeof Tasks['prototype']['props']["tasks"] = await prisma.task.create({
             data: {
 
                 title,
@@ -146,13 +147,35 @@ export async function GET(req: Request) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        const dueTodayTask = tasks.find(
-            (task) =>
-                task.date instanceof Date &&
-                task.date.getTime() === today.getTime() &&
-                !task.isCompleted
-        );
+        // const dueTodayTask = tasks.find(
+        //     (task) =>
+        //         task.date instanceof Date &&
+        //         task.date.getTime() === today.getTime() &&
+        //         !task.isCompleted
+        // );
 
+        // const dueTodayTask = tasks.find((task) => {
+        //     if (task.date instanceof Date) {
+        //         // Now TypeScript knows that task.date is a Date
+        //         return (
+        //             task.date.getTime() === today.getTime() &&
+        //             !task.isCompleted
+        //         );
+        //     }
+        //     return false; // Handle the case where task.date is not a Date
+        // });
+
+        const dueTodayTask = tasks.find((task: { date: any, isCompleted: boolean }) => {
+            if (task.date instanceof Date) {
+                return (
+                    task.date.getTime() === today.getTime() &&
+                    !task.isCompleted
+                );
+            }
+            return false;
+        });
+
+        // Rest of your code remains the same
         if (dueTodayTask) {
             // Return an indication that there is a task due today
             return NextResponse.json({
@@ -163,6 +186,18 @@ export async function GET(req: Request) {
                 },
             });
         }
+
+
+        // if (dueTodayTask) {
+        //     // Return an indication that there is a task due today
+        //     return NextResponse.json({
+        //         tasks,
+        //         dueTodayTask: {
+        //             title: dueTodayTask.title,
+        //             date: dueTodayTask.date,
+        //         },
+        //     });
+        // }
 
         console.log("TASKS: ", tasks);
         return NextResponse.json({ tasks });
