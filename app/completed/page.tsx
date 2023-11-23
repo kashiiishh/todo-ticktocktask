@@ -9,7 +9,7 @@ function page() {
 
     const { completedTasks } = useGlobalState();
     return (
-        <Tasks title='Completed Tasks' tasks={completedTasks} />
+        <Tasks title='Completed Tasks' tasks={completedTasks} date={new Date()} />
     );
 }
 
