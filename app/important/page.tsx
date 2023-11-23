@@ -9,7 +9,7 @@ function page() {
 
     const { importantTasks } = useGlobalState();
     return (
-        <Tasks title="Important Tasks" tasks={importantTasks} />
+        <Tasks title="Important Tasks" tasks={importantTasks} date={new Date()} />
     );
 }
 
