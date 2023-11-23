@@ -88,6 +88,7 @@ import { toast } from 'react-hot-toast';
 interface Props {
   title: string;
   tasks: any[];
+  date: Date;
 }
 
 // function Tasks({ title, tasks }: Props) {
@@ -157,7 +158,7 @@ interface Props {
 
 // ... (other imports)
 
-function Tasks({ title,tasks }: Props) {
+function Tasks({ title, tasks }: Props) {
   const { theme, isLoading, openModal, modal, allTasks } = useGlobalState();
 
   useEffect(() => {
