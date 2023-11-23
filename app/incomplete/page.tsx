@@ -9,7 +9,7 @@ function page() {
 
     const { incompleteTasks } = useGlobalState();
     return (
-        <Tasks title='Incompleted Tasks' tasks={incompleteTasks} />
+        <Tasks title='Incompleted Tasks' tasks={incompleteTasks} date={new Date()} />
     );
 }
 
